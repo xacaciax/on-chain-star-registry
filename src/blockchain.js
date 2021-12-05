@@ -86,8 +86,6 @@ class Blockchain {
       this.height = this.chain.length;
 
       resolve(block);
-
-      // TODO reject if there was an error?
     });
   }
 
@@ -147,6 +145,16 @@ class Blockchain {
         let newBlock = new BlockClass.Block(star);
         this._addBlock(newBlock);
         resolve(newBlock);
+      } else if (!withinFiveMinutes) {
+        reject(
+          Error({
+            name: "Unable to add block.",
+            message:
+              "Request took longer than five minutes to reach use, please try again.",
+          })
+        );
+      } else if (!messageIsVerified) {
+        reject(Error({ name: "Invalid message. Block was not added" }));
       }
     });
   }
