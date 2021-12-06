@@ -41,12 +41,13 @@ Prerequisites: Make sure you have `node` and `npm` installed.
    > Server Listening for port: 8000
 
 2. To make sure your application is working fine and it creates the Genesis Block you can use POSTMAN to request the Genesis block:
-   ![Request: http://localhost:8000/block/0 ](https://s3.amazonaws.com/video.udacity-data.com/topher/2019/April/5ca360cc_request-genesis/request-genesis.png)
+   ![Request: http://localhost:8000/block/0 ](https://photos.app.goo.gl/byqvMeKHJUgMrnf8A)
 3. Make your first request of ownership sending your wallet address:
-   ![Request: http://localhost:8000/requestValidation ](https://s3.amazonaws.com/video.udacity-data.com/topher/2019/April/5ca36182_request-ownership/request-ownership.png)
+   ![Request: http://localhost:8000/requestValidation ](https://photos.app.goo.gl/12VXu7nGvFQtQ59h9)
 4. Sign the message with your Wallet:
-   ![Use the Wallet to sign a message](https://s3.amazonaws.com/video.udacity-data.com/topher/2019/April/5ca36182_request-ownership/request-ownership.png)
+   ![Use the Wallet to sign a message](https://photos.app.goo.gl/MmMmUxgBQpedwSep9)
 5. Submit your Star
-   ![Request: http://localhost:8000/submitstar](https://s3.amazonaws.com/video.udacity-data.com/topher/2019/April/5ca365d3_signing-message/signing-message.png)
+   ![Request: http://localhost:8000/submitstar](https://photos.app.goo.gl/1R6Hybk2h5jSQM6V6)
 6. Retrieve Stars owned by me
-   ![Request: http://localhost:8000/blocks/<WALLET_ADDRESS>](https://s3.amazonaws.com/video.udacity-data.com/topher/2019/April/5ca362b9_retrieve-stars/retrieve-stars.png)
+   ![Request: http://localhost:8000/blocks/<WALLET_ADDRESS>](https://photos.app.goo.gl/mjtdZg4i6iyP3UAA9)
+7. Validate the chain ![Request: http://localhost:8000/chain/validate](https://photos.app.goo.gl/1UFbNj5QaLgbSHsc6)
