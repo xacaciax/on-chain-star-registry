@@ -5,7 +5,7 @@ Prerequisites: Make sure you have `node` and `npm` installed.
 1. Clone the repo
 2. run `npm install`
 3. Run `node app.js` in your terminal
-4. Check your terminal the for the Express application logs `Listening in the PORT 8000`
+4. Check your terminal for the Express application logs `Listening in the PORT 8000`
 
 5. [recommended] Use postman to interact with the endpoints listed in `BlockchainController.js`
 
