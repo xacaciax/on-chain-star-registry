@@ -133,7 +133,7 @@ class Blockchain {
       let currentTime = parseInt(new Date().getTime().toString().slice(0, -3));
       let withinFiveMinutes = (currentTime - messageTime) / 1000 / 60 < 5;
 
-      // Verify the message
+      // Verify the signature
       let messageIsVerified = bitcoinMessage.verify(
         message,
         address,
@@ -142,19 +142,15 @@ class Blockchain {
 
       // If sent within five minutes and verified, add new block to the chain
       if (withinFiveMinutes && messageIsVerified) {
-        let newBlock = new BlockClass.Block(star);
-        this._addBlock(newBlock);
+        let newBlock = new BlockClass.Block({ star: star, address: address });
+        self._addBlock(newBlock);
         resolve(newBlock);
       } else if (!withinFiveMinutes) {
         reject(
-          Error({
-            name: "Unable to add block.",
-            message:
-              "Request took longer than five minutes to reach use, please try again.",
-          })
+          "Request took longer than five minutes to reach us, please try again. Block was not added."
         );
       } else if (!messageIsVerified) {
-        reject(Error({ name: "Invalid message. Block was not added" }));
+        reject("Unable to verify signature. Block was not added.");
       }
     });
   }
@@ -166,8 +162,15 @@ class Blockchain {
    * @param {*} hash
    */
   getBlockByHash(hash) {
-    let self = this;
-    return new Promise((resolve, reject) => {});
+    let chain = this.chain;
+    return new Promise((resolve, reject) => {
+      for (let step = 0; step < chain.length; step++) {
+        if (chain[step].hash === hash) {
+          resolve(chain[step].block);
+        }
+      }
+      reject("Unable to find a block with that hash.");
+    });
   }
 
   /**
@@ -194,9 +197,23 @@ class Blockchain {
    * @param {*} address
    */
   getStarsByWalletAddress(address) {
-    let self = this;
+    let chain = this.chain;
     let stars = [];
-    return new Promise((resolve, reject) => {});
+    return new Promise((resolve, reject) => {
+      chain.forEach((block, index) => {
+        // skip the genesis block
+        if (index !== 0) {
+          // get the block data
+          block.getBData().then((blockData) => {
+            // if the address matches, add the block
+            if (blockData.address === address) {
+              stars.push(block);
+            }
+          });
+        }
+      });
+      resolve(stars);
+    });
   }
 
   /**

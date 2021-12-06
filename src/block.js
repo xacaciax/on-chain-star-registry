@@ -9,15 +9,6 @@
  *  run asynchronous.
  */
 
-// Block data model
-// {
-//    "hash": "000000000000e198e04b0759cfecd59a95604cc551db9ad3b12a290375a95419",
-//    "height": 1325438,
-//    "body": [],
-//    "time": 1529001822,
-//    "previousBlockHash": "00000000af61e2a9b09936dad3f5f213a8f659c5845d142b71894b4d5e5e17da"
-//  }
-
 const SHA256 = require("crypto-js/sha256");
 const hex2ascii = require("hex2ascii");
 
@@ -57,10 +48,10 @@ class Block {
 
       if (!isValid) {
         // Returning the Block is not valid
-        return resolve(false);
+        resolve(false);
       } else {
         // Returning the Block is valid
-        return resolve(true);
+        resolve(true);
       }
     });
   }
@@ -84,13 +75,13 @@ class Block {
       let json = hex2ascii(data);
 
       // Parse the data to an object to be retrieved.
-      let blockObject = JSON.parse(json);
+      let blockData = JSON.parse(json);
 
       // Resolve with the data if the object isn't the Genesis block
       if (self.height > 0) {
-        return resolve(blockObject);
+        resolve(blockData);
       } else {
-        return reject(Error("No data in the genesis block."));
+        reject("No data in the genesis block.");
       }
     });
   }
