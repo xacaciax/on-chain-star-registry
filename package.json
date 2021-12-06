@@ -8,6 +8,12 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Udacity - jose.morales@udacity.com",
+  "contributors": [
+    {
+      "name": "Acacia Pappas", 
+      "email": "acacia.m.pappas@gmail.com"
+    }
+  ],
   "license": "ISC",
   "dependencies": {
     "bitcoinjs-lib": "^4.0.3",
