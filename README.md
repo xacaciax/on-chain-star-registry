@@ -11,8 +11,6 @@ Prerequisites: Make sure you have `node` and `npm` installed.
 
 ### This is a simple blockchain implementation that allows you to register stars
 
-### What is the process describe by the employer to be implemented in the application?
-
 1. The application will create a Genesis Block when you run the application.
 2. The user will request the application to send a message to be signed using a Wallet and in this way verify the ownership over the wallet address. The message format will be: `<WALLET_ADRESS>:${new Date().getTime().toString().slice(0,-3)}:starRegistry`;
 3. Once the user have the message the user can use a Wallet to sign the message. Use Electrum or Bitcoin Core to do this. Note: The address must be a Bitcoin legacy address. To use legacy Bitcoin addresses, set `addresstype=legacy` in the `bitcoin.conf` file for Bitcoin Core, and restart it.
