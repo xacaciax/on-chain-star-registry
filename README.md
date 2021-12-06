@@ -45,7 +45,7 @@ Prerequisites: Make sure you have `node` and `npm` installed.
 3. Make your first request of ownership sending your wallet address:
    [Request: http://localhost:8000/requestValidation ](https://photos.app.goo.gl/12VXu7nGvFQtQ59h9)
 4. Sign the message with your Wallet:
-   ![Use the Wallet to sign a message](https://photos.app.goo.gl/MmMmUxgBQpedwSep9)
+   [Use the Wallet to sign a message](https://photos.app.goo.gl/MmMmUxgBQpedwSep9)
 5. Submit your Star
    [Request: http://localhost:8000/submitstar](https://photos.app.goo.gl/1R6Hybk2h5jSQM6V6)
 6. Retrieve Stars owned by me
