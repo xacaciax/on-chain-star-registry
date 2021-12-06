@@ -134,14 +134,14 @@ class Blockchain {
       let withinFiveMinutes = (currentTime - messageTime) / 1000 / 60 < 5;
 
       // Verify the signature
-      let messageIsVerified = bitcoinMessage.verify(
+      let signatureVerified = bitcoinMessage.verify(
         message,
         address,
         signature
       );
 
       // If sent within five minutes and verified, add new block to the chain
-      if (withinFiveMinutes && messageIsVerified) {
+      if (withinFiveMinutes && signatureVerified) {
         let newBlock = new BlockClass.Block({ star: star, address: address });
         self._addBlock(newBlock);
         resolve(newBlock);
@@ -149,7 +149,7 @@ class Blockchain {
         reject(
           "Request took longer than five minutes to reach us, please try again. Block was not added."
         );
-      } else if (!messageIsVerified) {
+      } else if (!signatureVerified) {
         reject("Unable to verify signature. Block was not added.");
       }
     });
@@ -201,11 +201,9 @@ class Blockchain {
     let stars = [];
     return new Promise((resolve, reject) => {
       chain.forEach((block, index) => {
-        // skip the genesis block
+        // Skip the genesis block.
         if (index !== 0) {
-          // get the block data
           block.getBData().then((blockData) => {
-            // if the address matches, add the block
             if (blockData.address === address) {
               stars.push(block);
             }
@@ -225,7 +223,19 @@ class Blockchain {
   validateChain() {
     let self = this;
     let errorLog = [];
-    return new Promise(async (resolve, reject) => {});
+    return new Promise(async (resolve, reject) => {
+      self.chain.forEach(async (block, index) => {
+        if (index > 0) {
+          if ((await block.validate()) === false) {
+            error.push({ error: "Block validation failed." });
+          }
+          if (block.previousBlockHash !== self.chain[index - 1].hash) {
+            errorLog.push({ error: "Hash of previousBlock does not match." });
+          }
+        }
+      });
+      resolve(errorLog);
+    });
   }
 }
 
