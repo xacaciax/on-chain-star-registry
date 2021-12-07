@@ -97,7 +97,7 @@ class Blockchain {
    */
   submitStar(address, message, signature, star) {
     let self = this;
-    return new Promise(async (resolve) => {
+    return new Promise(async (resolve, reject) => {
       // Confirm that the message was sent within the last five minutes
       let messageTime = parseInt(message.split(":")[1]);
       let currentTime = parseInt(new Date().getTime().toString().slice(0, -3));
@@ -114,14 +114,20 @@ class Blockchain {
       if (withinFiveMinutes && signatureVerified) {
         let newBlock = new BlockClass.Block({ star: star, address: address });
         await self._addBlock(newBlock).then((block) => {
-          resolve(block);
+          if (block.hash === null) {
+            // If the block hash is null, validation failed. The errorLog has been propogated
+            // to be passed here to provide context for the failure.
+            reject(block);
+          } else {
+            resolve(block);
+          }
         });
       } else if (!withinFiveMinutes) {
-        resolve(
+        reject(
           "Request took longer than five minutes to reach us, please try again. Block was not added."
         );
       } else if (!signatureVerified) {
-        resolve("Unable to verify signature. Block was not added.");
+        reject("Unable to verify signature. Block was not added.");
       }
     });
   }
@@ -202,7 +208,7 @@ class Blockchain {
           }
         }
       });
-      resolve(errorLog);
+      resolve(["test"]);
     });
   }
 }
