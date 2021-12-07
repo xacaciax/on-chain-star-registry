@@ -9,7 +9,7 @@ Prerequisites: Make sure you have `node` and `npm` installed.
 
 5. [recommended] Use postman to interact with the endpoints listed in `BlockchainController.js`
 
-### This is a simple blockchain implementation that allows you to register stars
+## This is a simple blockchain implementation that allows you to register stars
 
 1. The application will create a Genesis Block when you run the application.
 2. The user will request the application to send a message to be signed using a Wallet and in this way verify the ownership over the wallet address. The message format will be: `<WALLET_ADRESS>:${new Date().getTime().toString().slice(0,-3)}:starRegistry`;
@@ -51,3 +51,18 @@ Prerequisites: Make sure you have `node` and `npm` installed.
 6. Retrieve Stars owned by me
    [Request: http://localhost:8000/blocks/<WALLET_ADDRESS>](https://photos.app.goo.gl/mjtdZg4i6iyP3UAA9)
 7. Validate the chain: [Request: http://localhost:8000/chain/validate](https://photos.app.goo.gl/1UFbNj5QaLgbSHsc6)
+
+## Debugging
+
+If you are using vs code, default debugger configuration should work just fine:
+
+```
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "Launch Program",
+      "program": "${workspaceFolder}/app.js"
+    }
+```
+
+To view server logs, set an env variable `export DEBUG="express"` to activate the `debug` logger. To view more verbose logs, set `export DEBUG=*`, oor see https://github.com/debug-js/debug#readme for more.
