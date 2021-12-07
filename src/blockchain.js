@@ -23,7 +23,7 @@ class Blockchain {
    * Utility method that return a Promise that will resolve with the height of the chain
    */
   getChainHeight() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       resolve(this.height);
     });
   }
@@ -36,7 +36,7 @@ class Blockchain {
    */
   _addBlock(block) {
     let self = this;
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve) => {
       //Check that the chain is valid before adding a blocks
       await self.validateChain().then((chainValidationErrors) => {
         if (chainValidationErrors.length > 0) {
@@ -97,7 +97,7 @@ class Blockchain {
    */
   submitStar(address, message, signature, star) {
     let self = this;
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve) => {
       // Confirm that the message was sent within the last five minutes
       let messageTime = parseInt(message.split(":")[1]);
       let currentTime = parseInt(new Date().getTime().toString().slice(0, -3));
@@ -151,7 +151,7 @@ class Blockchain {
    */
   getBlockByHeight(height) {
     let self = this;
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       let block = self.chain.filter((p) => p.height === height)[0];
       if (block) {
         resolve(block);
@@ -171,7 +171,7 @@ class Blockchain {
     let stars = [];
     return new Promise((resolve, reject) => {
       chain.forEach((block, index) => {
-        // Skip the genesis block.
+        // Skip the genesis block
         if (index !== 0) {
           block.getBData().then((blockData) => {
             if (blockData.address === address) {
@@ -190,7 +190,7 @@ class Blockchain {
   validateChain() {
     let self = this;
     let errorLog = [];
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve) => {
       self.chain.forEach(async (block, index) => {
         if ((await block.validate()) === false) {
           errorLog.push({ error: "Block validation failed." });
