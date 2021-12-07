@@ -37,9 +37,10 @@ class Blockchain {
   _addBlock(block) {
     let self = this;
     return new Promise(async (resolve) => {
-      //Check that the chain is valid before adding a blocks
+      //Check that the chain is valid before adding block
       await self.validateChain().then((chainValidationErrors) => {
         if (chainValidationErrors.length > 0) {
+          // Propocate the errorLog to provide context for the failure
           resolve(chainValidationErrors);
         } else {
           // Check that this is not the genesis block, assign the previous block's hash to
@@ -62,7 +63,6 @@ class Blockchain {
 
           // assign new chain height
           self.height = self.height + 1;
-
           resolve(block);
         }
       });
